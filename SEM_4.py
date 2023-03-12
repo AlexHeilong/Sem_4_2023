@@ -129,30 +129,28 @@ print(len(set(new_str)))
 # Петя помогает Кате по математике. Он задумывает два натуральных числа X и Y (X,Y≤1000),
 # а Катя должна их отгадать. Для этого Петя делает две подсказки.
 # Он называет сумму этих чисел S и их произведение P. Помогите Кате отгадать задуманные Петей числа.
-
+"""
 sum = int(input('Input sum: '))
 mult = int(input('Input multy: '))
 x = y = 0
 a, b, c = 1, -sum, mult
 
+
 def roots(a, b, c):
-    dicr = b**2 - 4*a*c
+    dicr = b ** 2 - 4 * a * c
     if dicr > 0:
-        x1 = (-b-dicr**0.5)/2*a
-        x2 = (-b+dicr**0.5)/2*a
+        x1 = (-b - dicr ** 0.5) / 2 * a
+        x2 = (-b + dicr ** 0.5) / 2 * a
         return int(x1), int(x2)
     elif dicr == 0:
-        x = -b/2*a
+        x = -b / 2 * a
         return int(x)
     else:
         print('Петя обманул Катю')
-print(roots(a,b,c))
 
 
-
-
-
-
+print(roots(a, b, c))
+"""
 # Task 3
 
 # Написать программу, которая состоит 4 из этапов:
@@ -168,3 +166,65 @@ print(roots(a,b,c))
 # - 3 этап: 264 -> 2+6+4 -> 12 -> 1+2 -> 3
 # - 3 этап: [3, 1, 5, 5, 3, 5, 4]
 # - 4 этап: [3, 1, 5, 4]
+# Variant 1
+"""
+import random
+# Первый этап
+my_list = [random.randint(1000, 10000) for i in range(7)]
+print(my_list)
+# Второй этап
+new_list = []
+end_list = []
+x = input('Input digit: ')
+for value in my_list:
+    el = str(value)
+    if x in el:
+        el = el.replace(x, '')
+    new_list.append(el)
+print(new_list)
+# Третий этап
+for value in new_list:
+    sum_x = sum([(int(el)) for el in value])
+    while sum_x > 9:
+        sum_x = sum([int(el) for el in str(sum_x)])
+    end_list.append(sum_x)
+print(end_list)
+
+# Четвертый этап
+print(set(end_list))
+"""
+### Variant 2
+import random
+# Первый этап
+my_list = [str(random.randint(1000, 10000)) for i in range(7)]
+print(my_list)
+# Второй этап
+numToRemove = input('Input number: ')
+new_list = []
+for i in my_list:
+    i = i.replace(numToRemove, "")
+    new_list.append(i)
+print(new_list)
+# Третий этап
+
+def sumOfNum(num):
+    sum = 0
+    for i in range(len(num)):
+        sum += int(num[i])
+        if sum < 10:
+            return sum
+        num = str(sum)
+        return sumOfNum(num)
+
+end_list = []
+for num in new_list:
+    end_list.append(sumOfNum(num))
+print(end_list)
+
+# Четвертый этап
+setNum = set(end_list)
+print(setNum)
+
+
+
+
